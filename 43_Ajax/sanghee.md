@@ -8,8 +8,6 @@ Ajax는 브라우저에서 제공하는 Web API인 **XMLHttpRequest 객체**를
 
 ## Ajax 이전 전통적인 방식
 
-  <img src="./sh_images/43-1.webp" alt="img" width="500px"/>
-
 전통적인 웹페이지는 html 태그로 시작해서 html 태그로 끝나는 완전한 HTML을 서버로부터 전송받아 웹페이지 전체를 처음부터 다시 렌더링하는 방식으로 동작했다.
 
 이러한 전통적인 방식은 다음과 같은 단점이 있다.
@@ -26,13 +24,11 @@ Ajax의 등장으로 서버로부터 웹페이지의 변경에 필요한 데이�
 
 이를 통해 브라우저에서도 데스크톱 애플리케이션과 유사한 빠른 퍼포먼스와 부드러운 화면 전환이 가능해졌다.
 
-  <img src="./sh_images/43-2.webp" alt="img" width="500px"/>
-
 Ajax는 전통적인 방식과 비교했을 때 다음과 같은 장점이 있다.
 
-1. 변경할 부분을 갱신하는 데 필요한 데이터만 서버로부터 전송받기 때문에 불필요한 데이터 통신이 발생하지 않는다.
-2. 변경할 필요가 없는 부분은 다시 렌더링하지 않는다. 따라서 화면이 순간적으로 깜빡이는 현상이 발생하지 않는다.
-3. 클라이언트와 서버와의 통신이 비동기 방식으로 동작하기 때문에 서버에게 요청을 보낸 이후 블로킹이 발생하지 않는다.
+1. 변경할 부분을 갱신하는 데 **필요한 데이터만 서버로부터 전송받기** 때문에 불필요한 데이터 통신이 발생하지 않는다.
+2. **변경할 필요가 없는 부분은 다시 렌더링하지 않는다.** 따라서 화면이 순간적으로 깜빡이는 현상이 발생하지 않는다.
+3. **클라이언트와 서버와의 통신이 비동기 방식으로 동작**하기 때문에 서버에게 요청을 보낸 이후 블로킹이 발생하지 않는다.
 
 <br/>
 
@@ -56,7 +52,7 @@ JSON은 자바스크립트의 객체 리터럴과 유사하게 키와 값으로 
 }
 ```
 
-JSON의 키는 반드시 큰따옴표(작음따옴표 사용 불가)로 묶어야 한다.  
+JSON의 키는 반드시 큰따옴표(작은따옴표 사용 불가)로 묶어야 한다.  
 값은 객체 리터럴과 같은 표기법을 그대로 사용할 수 있다. 하지만 문자열은 반드시 큰따옴표로 묶어야 한다.
 
 <br/>
@@ -64,7 +60,7 @@ JSON의 키는 반드시 큰따옴표(작음따옴표 사용 불가)로 묶어�
 ## **JSON.stringify**
 
 JSON.stringify 메서드는 객체를 JSON 포맷의 문자열로 변환한다.  
-클라이언트가 서버로 객체를 전송하려면 객체를 문자열화해야 하는데 이를 직렬화라 한다.
+클라이언트가 서버로 객체를 전송하려면 객체를 문자열화 해야한다(직렬화)
 
 ```jsx
 const obj = {
@@ -154,7 +150,8 @@ string [
 
 JSON.parse 메서드는 JSON 포맷의 문자열을 객체로 변환한다.
 
-서버로부터 클라이언트에게 전송된 JSON 데이터는 문자열이다. 이 문자열을 객체로서 사용하려면 JSON 포맷의 문자열을 객체화해야 하는데 이를 역직렬화라 한다.
+서버로부터 클라이언트에게 전송된 JSON 데이터는 문자열이다.
+이 문자열을 객체로서 사용하려면 JSON 포맷의 문자열을 객체화 해야한다(역직렬화)
 
 ```jsx
 const obj = {
@@ -201,7 +198,7 @@ console.log(typeof parsed, parsed);
 
 # **XMLHttpRequest**
 
-브라우저는 주소창이나 HTML의 form 태그, a 태그를 통해 HTTP 요청 전송 기능을 기본 제공한다.
+Ajax는 개념적으로 비동기 통신을 위한 패러다임을 가리키며, XMLHttpRequest는 실제로 이를 구현하는 기술이다.(+ fetch)
 
 자바스크립트를 사용하여 HTTP 요청을 전송하려면 XMLHttpRequest 객체를 사용한다.
 
@@ -326,19 +323,9 @@ HTTP 요청 메서드는 클라이언트가 서버에게 요청의 종류와 목
 | PATCH            | modify         | 리소스의 일부 수정    | O        |
 | DELETE           | delete         | 모든/특정 리소스 삭제 | X        |
 
-> 💡 페이로드
-> 페이로드는 전송의 근본적인 목적이 되는 데이터의 일부분으로, 그 데이터와 함께 전송되는 헤더, 메타데이터와 같은 부분은 제외한다.
->
-> 예를 들어 웹 서비스 응답이 아래의 JSON이라 하면 "Hello, world!"가 클라이언트가 관심을 가지는 페이로드이다.
->
-> ```jsx
-> {
->     "status":"OK",
->     "data": {
->         "message":"Hello, world!"
->     }
-> }
-> ```
+> 💡 페이로드  
+> 페이로드는 전송되는 데이터 자체를 지칭한다.  
+> 보통 데이터를 전송할때는 헤더, 바디, 메타 데이터와 같은 정보로 이루어져 있는데, 전송 목적이 되는 데이터만 포함하고 그 데이터와 함께 전송되는 헤더나 메타 데이터는 제외하고를 말함.
 
 <br/>
 
@@ -370,42 +357,14 @@ Content-type은 요청 몸체에 담아 전송할 데이터의 MIME 타입의 �
 | application | appliation/json, application/x-www-form-urlencode |
 | multipart | multipart/formed-data |
 
-> 💡 MIME 타입
->
-> MIME 타입(Multipurpose Internet Mail Extensions)이란 문서, 파일 또는 바이트 집합의 성격과 형식을 나타낸다.
->
-> MIME 타입은 가장 일반적으로 슬래시(/)로 구분된 'type'과 'subtype'의 두 부분으로 구성된다.
->
-> `type/subtype`
->
-> type은 video 또는 text와 같이 데이터 타입이 속하는 일반 카테고리를 나타낸다.
->
-> subtype은 MIME 타입이 나타내는 지정된 타입의 정확한 데이터 종류를 식별한다. 예를 들어, MIME 타입 text의 경우 하위 타입은 plain (평문 텍스트), html (HTML 소스 코드) 또는 calendar (iCalendar/.ics 용)이다.
->
-> 각 타입에는 고유한 하위 타입이 있다. MIME 타입은 항상 타입과 하위 타입 모두 가지며, 둘 중 하나만 가지지는 않는다.
-> 다음은 요청 몸체에 담아 서버로 전송할 페이로드의 MIME 타입을 지정하는 예다.
-
-```jsx
-// XMLHttpRequest 객체 생성
-const xhr = new XMLHttpRequest();
-
-// HTTP 요청 초기화
-xhr.open("POST", "/users");
-
-// HTTP 요청 헤더 설정
-// 클라이언트가 서버로 전송할 데이터의 MIME 타입 지정: json
-xhr.setRequestHeader("content-type", "application/json");
-
-// HTTP 요청 전송
-xhr.send(JSON.stringify({ id: 1, content: "HTML", completed: false }));
-```
+> 💡 MIME 타입  
+> 미디어 타입을 말하며, 일반적으로 슬래시(/)로 구분된 'type'과 'subtype'의 두 부분으로 구성한다.
 
 HTTP 클라이언트가 서버에 요청할 때 서버가 응답할 데이터의 MIME 타입을 Accept로 지정할 수 있다.
 
 ```jsx
-다음은 서버가 응답할 데이터의 MIME 타입을 지정하는 예다.
 // 서버가 응답할 데이터의 MIME 타입 지정: json
-xhr.setRequestHeader('accept', 'application/json');
+xhr.setRequestHeader("accept", "application/json");
 ```
 
 만약 Accept 헤더를 설정하지 않으면 send 메서드가 호출될 때 Accept 헤더가 */*으로 전송된다.
@@ -451,14 +410,6 @@ xhr.onreadystatechange = () => {
   }
 };
 ```
-
-send 메서드를 통해 HTTP 요청을 서버에 전송하면 서버는 응답을 반환한다.  
-하지만 언제 응답이 클라이언트에 도달할 지는 알 수 없다. 따라서 readystatechange 이벤트를 통해 HTTP 요청의 현재 상태를 확인해야 한다. 이는 HTTP 요청의 현재 상태를 나타내는 readyState 프로퍼티가 변경될 때마다 발생한다.
-
-onreadystatechange 이벤트 핸들러 프로퍼티에 할당한 이벤트 핸들러는 HTTP 요청의 현재 상태를 나타내는 xhr.readyState가 XMLHttpRequest.DONE인지 확인하여 서버의 응답이 완료되었는지 확인한다.
-
-서버의 응답이 완료되면 HTTP 요청에 대한 응답 상태(HTTP 상태 코드)를 나타내는 xhr.status가 200인지 확인하여 정상 처리와 에러 처리를 구분한다.  
-HTTP 요청에 대한 응답이 정상적으로 도착했다면 요청에 대한 응답 몸체를 나타내는 xhr.response에서 서버가 전송한 데이터를 취득한다. 만약 xhr.status가 200이 아니면 에러가 발생한 상태이므로 필요한 에러 처리를 한다.
 
 readystatechange 이벤트 대신 load 이벤트를 캐치해도 좋다.  
 load 이벤트는 HTTP 요청이 성공적으로 완료된 경우 발생한다. 따라서 load 이벤트를 캐치하는 경우 xhr.readyState가 XMLHttpRequest.DONE인지 확인할 필요가 없다.
